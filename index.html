@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix clone</title>
+    <link rel="icon" href="nficon2016.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        *{
+            margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif;color: white;
+        }
+        body{
+           scroll-behavior:smooth;background: #000;overflow-x: hidden;
+        }
+        #head{
+            background:url(netback.jpg) no-repeat;
+           background-color: #000000c5;
+            background-blend-mode: overlay;
+            background-position:center;
+            background-size: cover;           
+            height: 570px; width: 100%;
+            position: relative;
+        }
+        @media screen and (max-width: 900px){
+            body{
+                overflow-x: hidden;
+            }
+            .hero-section h1{
+                
+            }
+            .hero-section p{
+                font-size: 10px;
+            }
+        }
+            
+        
+        .navbar{
+            max-width: 80%;height: 80px;margin: auto;
+            display: flex;align-items: center;justify-content: space-between;   
+        }
+        .btn{
+            display: flex;
+        }
+        .btn i{
+            position: relative;left: 30px;top: 1px;
+        }
+        .logo img{
+            width: 170px;height: auto;   
+        }
+        .select-lang, .sign-in{
+            background: none;font-size: 14px;cursor: pointer;border-radius: 4px;padding: 5px 16px 5px 30px;
+        }
+        .select-lang:hover{
+            border: 2px solid white;
+        }
+        .select-lang option{
+            color: black;
+        }
+        .sign-in{
+            background-color: #e50914;padding: 5px 16px;margin-left: 10px;border: none;
+        }
+        .hero-section{
+            height: 100%;width: 100%;
+           display: flex;flex-direction: column;text-align: center;margin-top: 5%;
+        }
+        .hed{
+            font-size: 1.8rem;font-weight: 1000;
+        }
+        .membership,.membr{
+            position: relative;top: 20px;
+        }
+        .input{
+            width: 350px;position: relative;top: 40px;text-align: left;
+            padding: 28px 30px 8px 30px;border-radius: 4px;border: 1px solid grey;background: rgba(87, 79, 79, 0.185);
+        }
+        .input::placeholder{
+            position: relative;bottom: 7px;font-size: 16px;color: #FFFFFFB3;
+        }
+        .butn{
+            position: relative; padding:20px 40px 8px 16px; border-radius: 4px;
+            top: 39px;margin-left: 10px;background-color: #e50914;border: none;
+        }
+        button a{
+            font-size: 20px;position: relative;bottom: 7px;
+        }
+        #content{
+            height: 450px;width: 100%;
+        }
+        .trend{
+            height: 60px;width: 100%;align-items: last baseline;display: flex;
+        }
+        .trend:before{
+            content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    margin-top: -.25rem;
+    border-radius: inherit;
+    background: linear-gradient(to right, rgba(33, 13, 22, 1) 16%, rgba(184, 40, 105, 1), rgba(229, 9, 20, 1), rgba(184, 40, 105, 1), rgba(33, 13, 22, 1) 84%);
+           /* content: '';
+            position: absolute;top: 0;right: 0;bottom: 0;left: 0;z-index: -1;margin-top: -.25rem;border-radius: inherit;background: linear-gradient(to right, rgba(33, 13, 22, 1) 16%, rgba(184, 40, 105, 1), rgba(229, 9, 20, 1), rgba(184, 40, 105, 1), rgba(33, 13, 22, 1) 84%);*/
+        }
+        .trend p{
+            font-size: 24px;text-align: left;
+        }
+        .filter, .trend{
+            margin-left: 10%;
+        }
+        .bttn{
+            padding: 8px 36px 8px 12px;background: rgba(36, 35, 35, 0.466);border-radius: 5px;margin: 15px 0px 10px 10px;
+        }
+        .card-container{
+            position: relative;width: 80%;overflow: hidden;margin: auto;
+        }
+        .card{
+            position: relative; 
+        }
+        .card-img{
+            width: 170px;
+            height: 242px;
+            border-radius: 10px;
+        }
+        .rank{
+            position: relative;
+        }
+        .card-rank{
+           font-size: 5rem; font-weight: 800;position: absolute;bottom: 5px;left: -25px;padding: 5px;color: black;text-shadow: 2px 4px 1px rgb(180, 176, 176),-4px -4px 1px rgb(180, 176, 176),4px 2px 1px rgb(180, 176, 176),-4px -1px 1px rgb(180, 176, 176);
+        }
+        .top-10-badge{
+            position: absolute;font-size: 14px;text-align: center;
+            top: 0px;right: 0px;background: #e50914;font-weight: 600;height: 30px;width: 40px;border-top-right-radius: 10px;
+        }
+        .recently-added{
+            position: absolute;padding: 8px;border-radius: 4px;background: #e50914;left: 35px;font-size: 13px;bottom: 5px;font-weight: 600;
+        }
+        .slider{
+           display: flex;gap: 30px;margin-top: 30px;
+        }
+        .slider-button {
+           position: absolute;
+           top: 50%;
+           transform: translateY(-50%);
+           background-color: rgba(71, 68, 68, 0.973);
+           color: #fff;
+           border: none;
+           padding: 20px 10px 20px 10px;
+           cursor: pointer;
+           font-size: 24px;
+           border-radius: 10%;
+        }
+        .slider-button.left{
+            left: 10px;
+        }
+        .slider-button.right{
+            right: 10px;
+        }
+        
+        .ent{
+           color: rgb(182, 175, 175);
+           
+           font-size: 1.5rem;
+           padding: 0% 11% 2%;
+        }
+        .box {
+            background: linear-gradient(149deg, #192247 0%, #210e17 99.08%);
+            height: 270px;width: 240px;border-radius: 20px;padding: 15px;position: relative;
+        }
+        
+        .text{font-size: 20px;}
+        .hd{
+            color:whitesmoke;width: 100%;padding-left:35%;font-size: 1.4rem;
+        }
+        .sb-hed{
+            color: #FFFFFFB3;width: 90%;position: absolute;margin-top: 10px;
+        }
+        .box img{
+            width: 30%;position: absolute;right: 15px;bottom: 20px;border-radius: 10px;background-color: pink;border-radius: 50%;
+        }
+        .container{
+            display: flex;height:300px; width: 80%;margin: auto;gap: 20px;margin-top: 0px;
+        }
+        .ques_container{
+            min-height: 580px;width: 100%;display: flex;align-items: center;justify-content: center;flex-direction: column;padding: 2% 12%;
+        }
+        .ques{
+            background-color: #2d2d2d; padding: 18px 15px 13px 15px;font-size: 22px;display: flex;justify-content: space-between;text-align: center;cursor: pointer;transition: all 1s ease-in-out;
+        }
+        .ques:hover{background-color: #424242;}
+        .ques i{
+            font-size: 40px;font-weight: 100;
+        }
+        .ans{
+            max-height: 0;overflow: hidden;transition: max-height .3s ease-in-out;
+        }
+        .faq_list{
+            gap: 10px;display: grid;
+        }
+        .ans p{
+            background-color: #2d2d2d;padding: 27px;font-size: 22px;border: 1px solid black;
+        }
+        .ques_container .hd{
+        margin: 0px 69% 15px 0px;
+        }
+        .membr{
+            position: absolute;top: 10px;left: 30%;
+        }
+        .footer{
+            height: 500px;width: 100vw;position: relative;align-content: center;
+        }
+        .footer .list{
+            display: flex;align-content: center;justify-content: space-evenly;padding-top: 2%;
+        }
+        .list li{
+            list-style-type: none;color: #FFFFFFB3;font-size: 14px;font-weight: 500;text-decoration: underline;line-height: 2.5;
+        }
+        .footer .pr{
+            padding-left: 12%;position: absolute;
+        }
+        .pra{
+            color: #FFFFFFB3;position: absolute;left: 10%;
+        }
+        .pr{color: #FFFFFFB3;margin-top: 2%;font-size: 12px;}
+        .ctn{
+            position: relative;margin: 30px 0px 0px 150px;
+        }
+        .ctn i{
+            position: absolute;top: 7px;left: 4px;
+        }
+    </style>
+</head>
+    <div id="head">
+        <div class="navbar">
+          <div class="logo"><img src="netlogo-removebg-preview.png"></div>        
+          <div class="btn">
+                <div>
+                    <i class="fa-solid fa-language"></i>
+                    <select name="select-lang" class="select-lang">  
+                        <option value="select-lang">English</option><option value="select-lang">hindi</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="sign-in">Sign In</botton>
+                </div>                     
+          </div>
+        </div>
+        <div class="hero-section">
+            <div class="hed"><h1>Unlimited movies,<br> TV shows and<br> more</h1></div>
+            <div class="sub-hed"><p>Starts at ₹149. Cancel at any time.</p></div>
+            <div class="bn">
+              <div class="membership"><p>Ready to watch? Enter your email to create or restart your membership.</p></div>
+              <input type="text" placeholder="Email address" class="input"><button class="butn"><a>Get Sarted &#10095;</a></button>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <div class="trend">
+            <div class="pt">
+                <p>Trending Now</p>
+            </div>           
+        </div>
+        <div class="filter">
+            <span class="location">
+                <select name="select" class="bttn">
+                    <option value="">India</option>
+                    <option value="">Globle</option>
+                </select>
+            </span>
+            <span class="movie">
+                <select name="select" class="bttn">
+                    <option value="">Movies</option>
+                    <option value="">T.V shows</option>
+                </select>
+            </span>
+        </div>    
+        <div class="card-container">
+            <button class="slider-button left" onclick="slideLeft()">&#10094;</button>
+            <div class="slider">
+                <div class="card"><!-------card1-------->
+                   <img src="KHEL_NET.jpg" alt="khel-khel main" class="card-img">
+                   <div class="card-rank rank">1</div>
+                   <div class="top-10-badge rank">Top 10</div>
+                   <div class="recently-added rank">Recently added</div>
+              </div> 
+              <div class="card"> <!-------card2-------->
+                  <img src="KANDAL_NET.jfif" alt="khel-khel main" class="card-img">
+                  <div class="card-rank rank">2</div>
+                   <div class="top-10-badge rank">Top 10</div>
+                  <div class="recently-added rank">Recently added</div>
+               </div>           
+               <div class="card"> <!-------card3-------->
+                  <img src="greatest_net.jpg" alt="khel-khel main" class="card-img">
+                  <div class="card-rank rank">3</div>
+                   <div class="top-10-badge rank">Top 10</div>
+                  <div class="recently-added rank">Recently added</div>
+               </div>           
+               <div class="card"> <!-------card4-------->
+                  <img src="mathu_net.jpg" alt="khel-khel main" class="card-img">
+                   <div class="card-rank rank">4</div>
+                   <div class="top-10-badge rank">Top 10</div>
+                   <div class="recently-added rank">Recently added</div>
+               </div>           
+                <div class="card"> <!-------card5-------->
+                   <img src="ctrl_net.jfif" alt="khel-khel main" class="card-img">
+                   <div class="card-rank rank">5</div>
+                   <div class="top-10-badge rank">Top 10</div>
+                   <div class="recently-added rank">Recently added</div>
+               </div>  
+               <div class="card"> <!-------card6-------->
+                  <img src="sanivaram_net.jfif" alt="khel-khel main" class="card-img">
+                   <div class="card-rank rank">6</div>
+                   <div class="top-10-badge rank">Top 10</div>
+                   <div class="recently-added rank">Recently added</div>
+               </div>                     
+               <div class="card"> <!-------card7-------->
+                  <img src="ulagh_net.webp" alt="khel-khel main" class="card-img">
+                  <div class="card-rank rank">7</div>
+                   <div class="top-10-badge rank">Top 10</div>
+                   <div class="recently-added rank">Recently added</div>
+              </div> 
+              <div class="card"> <!-------card8-------->
+                  <img src="prising_net.jfif" alt="khel-khel main" class="card-img">
+                  <div class="card-rank rank">8</div>
+                  <div class="top-10-badge rank">Top 10</div>
+                  <div class="recently-added rank">Recently added</div>
+               </div>                     
+               <div class="card"> <!-------card9-------->
+                  <img src="sec36_net.jpg" alt="khel-khel main" class="card-img">
+                  <div class="card-rank rank">9</div>
+                  <div class="top-10-badge rank">Top 10</div>
+                  <div class="recently-added rank">Recently added</div>
+               </div> 
+               <div class="card"> <!-------card10-------->
+                  <img src="lonelyplanet_net.jpg" alt="khel-khel main" class="card-img">
+                  <div class="card-rank rank">10</div>
+                  <div class="top-10-badge rank">Top 10</div>
+                  <div class="recently-added rank">Recently added</div>
+               </div> 
+            </div>    
+            <button class="slider-button right" onclick="slideright()">&#10095;</button>            
+        </div>
+    </div>
+    <div class="entertain"> 
+        <div class="ent"><p>More reasons to join</p></div>
+        <div class="container">
+            <div class="box">
+                <p class="text">Enjoy on your TV</p>
+                <p class="sb-hed">Watch on smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more.</p>
+                <img src="https://png.pngtree.com/element_pic/17/01/08/b712e9fa483d9e7384d44478e0a175d5.jpg">
+            </div>
+            <div class="box">
+                <p class="text">Download your shows to watch offline</p>
+                <p class="sb-hed">Save your favourites easily and always have something to watch.</p>
+                <img src="netlogo-removebg-preview.png">
+            </div>
+            <div class="box">
+                <p class="text">Watch everywhere</p>
+                <p class="sb-hed">Stream unlimited movies and TV shows on your phone, tablet, laptop and TV.</p>
+                <img src="https://w7.pngwing.com/pngs/48/731/png-transparent-microphone-icon-mic-file-text-monochrome-black-thumbnail.png">
+            </div>
+            <div class="box">
+                <p class="text">Create profiles for kids</p>
+                <p class="sb-hed">Send kids on adventures with their favourite characters in a space made just for them — free with your membership.</p>
+                <img src="https://www.svgrepo.com/show/30827/chat.svg">
+            </div>
+        </div>
+    </div>
+    <div class="ques_container">
+        <p class="hd">Frequently Asked Question</p>
+        <div class="faq_list">
+            <div class="faq">
+                <div class="ques">
+                    <p>What is Netflix?</p><i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="ans">
+                    <p>Netflix is a streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries and more – on thousands of internet-connected devices.<br>
+                    You can watch as much as you want, whenever you want, without a single ad – all for one low monthly price. There's always something new to discover, and new TV shows and movies are added every week!</p>
+                </div>
+            </div>
+            <div class="faq">
+                <div class="ques">
+                    <p>How much does Netflix cost?</p><i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="ans">
+                    <p>Watch Netflix on your smartphone, tablet, Smart TV, laptop, or streaming device, all for one fixed monthly fee. Plans range from ₹149 to ₹649 a month. No extra costs, no contracts.</p>
+                </div>
+            </div>
+            <div class="faq">
+                <div class="ques">
+                    <p>Where can I Watch?</p><i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="ans">
+                    <p>Watch anywhere, anytime. Sign in with your Netflix account to watch instantly on the web at netflix.com from your personal computer or on any internet-connected device that offers the Netflix app, including smart TVs, smartphones, tablets, streaming media players and game consoles.<br>
+                    You can also download your favourite shows with the iOS or Android app. Use downloads to watch while you're on the go and without an internet connection. Take Netflix with you anywhere.</p>
+                </div>
+            </div>
+            <div class="faq">
+                <div class="ques">
+                    <p>How do I Cancle?</p><i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="ans">
+                    <p>Netflix is flexible. There are no annoying contracts and no commitments. You can easily cancel your account online in two clicks. There are no cancellation fees – start or stop your account anytime. </p>
+                </div>
+            </div>
+            <div class="faq">
+                <div class="ques">
+                    <p>What can I watch on Netflix?</p><i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="ans">
+                    <p>Netflix has an extensive library of feature films, documentaries, TV shows, anime, award-winning Netflix originals, and more. Watch as much as you want, anytime you want.</p>
+                </div>
+            </div>
+            <div class="faq">
+                <div class="ques">
+                    <p>Is Netflix good for kids?</p><i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="ans">
+                    <p>The Netflix Kids experience is included in your membership to give parents control while kids enjoy family-friendly TV shows and films in their own space.<br>
+                     Kids profiles come with PIN-protected parental controls that let you restrict the maturity rating of content kids can watch and block specific titles you don’t want kids to see. </p>
+                </div>
+            </div>
+        </div>           
+    </div>
+    <div class="footer">
+        <div class="membr">
+            <p>Ready to watch? Enter your email to create or restart your membership.</p>
+            <input type="text" placeholder="Email address" class="input"><button class="butn"><a>Get Sarted &#10095;</a></button>
+        </div>
+        <p class="pra">Questions? Call 000-800-919-1694</p>
+        <div class="list">
+            <ul>
+                <li>FAQ</li>
+                <li>Investor Relation</li>
+                <li>Privacy</li>
+                <li>Speed Test</li>
+            </ul>
+            <ul>
+                <li>Help Center</li>
+                <li>Jobs</li>
+                <li>Cookies Prefrence</li>
+                <li>Legal notice</li>
+            </ul>
+            <ul>
+                <li>Account</li>
+                <li>Ways to watch</li>
+                <li>Corporate</li>
+                <li>only on netflix</li>
+            </ul>
+            <ul>
+                <li>Media Center</li>
+                <li>Terms of use</li>
+                <li></li>
+                <li>contact Us</li>
+            </ul>
+        </div>
+        <div class="ctn">
+            <i class="fa-solid fa-language"></i>
+            <select name="select-lang" class="select-lang">  
+                <option value="select-lang">English</option><option value="select-lang">hindi</option>
+            </select>
+        </div>
+        <p class="pr">Netflix India</p>
+    </div>
+</body>
+</html>
